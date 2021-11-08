@@ -1,0 +1,13 @@
+---
+- name: Uninstall core-app
+  hosts: all
+
+  tasks:
+    - name: Uninstall notepad++
+      win_chocolatey:
+        name: notepadplusplus.install
+        state: absent
+    - name: Delete notepad++ directory
+      win_file:
+        path: C:\Users\vagrant\AppData\Roaming\Notepad++\
+        state: absent
