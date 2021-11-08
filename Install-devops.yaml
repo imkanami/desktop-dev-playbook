@@ -1,0 +1,8 @@
+---
+- hosts: win
+  tasks:
+    - name: Install core software
+      win_chocolatey:
+        name: "{{ item }}"
+        state: present
+      loop:

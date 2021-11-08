@@ -1,0 +1,17 @@
+---
+- name: Install notepad++
+  win_chocolatey:
+    name: notepadplusplus.install
+    state: present
+- name: Create theme directory
+  win_file:
+    path: C:\Users\vagrant\AppData\Roaming\Notepad++\themes\
+    state: directory
+- name: Download dark theme xml
+  win_get_url:
+    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/VS2019-Dark.xml
+    dest: C:\Users\vagrant\AppData\Roaming\Notepad++\themes\VS2019-Dark.xml
+- name: Download setting xml
+  win_get_url:
+    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/config.xml
+    dest: C:\Users\vagrant\AppData\Roaming\Notepad++\config.xml

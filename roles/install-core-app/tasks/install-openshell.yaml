@@ -1,0 +1,17 @@
+---
+- hosts: win
+  tasks:
+#    - name: Create env directory
+#      win_file:
+#        path: C:\env\
+#        state: directory
+#    - name: Download OpenShell setup
+#      win_get_url:
+#        url: https://github.com/Open-Shell/Open-Shell-Menu/releases/download/4.4.169-beta/OpenShellSetup_4_4_169.exe
+#        dest: C:\env\OpenShellSetup_4_4_169.exe
+    - name: Install Open-shell
+      win_package:
+        path: https://github.com/Open-Shell/Open-Shell-Menu/releases/download/4.4.169-beta/OpenShellSetup_4_4_169.exe
+        product_id: '{313D2BD7-C719-4A0C-A39B-21B383219402}'
+        arguments: '/qn ADDLOCAL=StartMenu'
+        state: present
