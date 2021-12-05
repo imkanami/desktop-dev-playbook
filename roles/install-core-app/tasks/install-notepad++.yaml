@@ -7,11 +7,14 @@
   win_file:
     path: C:\Users\vagrant\AppData\Roaming\Notepad++\themes\
     state: directory
+  #TODO add checksums
 - name: Download dark theme xml
   win_get_url:
-    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/VS2019-Dark.xml
+    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/roles/install-core-app/source/notepad++/VS2019-Dark.xml
     dest: C:\Users\vagrant\AppData\Roaming\Notepad++\themes\VS2019-Dark.xml
+  #TODO add checksums
+  #TODO add darkmode by default
 - name: Download setting xml
   win_get_url:
-    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/config.xml
+    url: https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/roles/install-core-app/source/notepad++/config.xml
     dest: C:\Users\vagrant\AppData\Roaming\Notepad++\config.xml

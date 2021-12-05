@@ -1,2 +1,6 @@
 ---
-- include_tasks: install-notepad++.yaml
+- name: Play needed tasks in order
+  include_tasks: "{{ item }}"
+  loop:
+    - install-notepad++.yaml
+    - install-openshell.yaml

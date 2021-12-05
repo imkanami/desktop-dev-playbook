@@ -1,0 +1,4 @@
+---
+- name: Install chocolatey
+  win_chocolatey:
+    name: chocolatey

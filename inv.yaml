@@ -1,5 +1,5 @@
 [win]
-192.168.1.49 ansible_connection=ssh ansible_shell_type=cmd
+192.168.1.60 ansible_connection=ssh ansible_shell_type=cmd
 
 [win:vars]
 ansible_user=vagrant

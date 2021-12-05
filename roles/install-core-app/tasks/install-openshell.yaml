@@ -1,27 +1,32 @@
 ---
-- hosts: win
-  tasks:
-  
-    - name: Install Open-shell
-      win_package:
-        path: https://github.com/Open-Shell/Open-Shell-Menu/releases/download/4.4.169-beta/OpenShellSetup_4_4_169.exe
-        product_id: '{313D2BD7-C719-4A0C-A39B-21B383219402}'
-        arguments: '/qn ADDLOCAL=StartMenu'
-        state: present
-    - name: Download config files
-      win_get_url:
-        url: "{{ item.url }}"
-        dest: "{{ item.dest }}"
-        checksum: "{{ item.checksum }}"
-        checksum_algorithm: sha1
-      loop:
-        - { url: 'https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/roles/install-core-app/source/openshell/Settings.xml', dest: 'C:\Program Files\Open-Shell\Settings.xml', checksum: 'c861936e6f830a56327020069cd877999a041643' }
-        - { url: 'https://github.com/imkanami/desktop-dev-playbook/raw/main/roles/install-core-app/source/openshell/Fluent-Metro.skin7', dest: 'C:\Program Files\Open-Shell\Skins\Fluent-Metro.skin7', checksum: '3d0c13427fc613d8ef6de6d09daaa4f0a9937e08' }
-    - name: Load config file
-      win_psexec:
-        executable: C:\Program Files\Open-Shell\StartMenu.exe
-        command: -xml "C:\Program Files\Open-Shell\Settings.xml" 
-        interactive: yes
-        elevated: yes
-    - name: Restart explorer
-      win_shell: Stop-Process -ProcessName explorer
+- name: Create env directory
+  win_file:
+    path: C:\env\
+    state: directory
+- name: Download setup for Open-shell
+  win_get_url:
+    url: https://github.com/Open-Shell/Open-Shell-Menu/releases/download/4.4.169-beta/OpenShellSetup_4_4_169.exe
+    dest: C:\env\OpenShellSetup_4_4_169.exe
+- name: Install Open-shell
+  win_package:
+    path: C:\env\OpenShellSetup_4_4_169.exe
+    product_id: '{313D2BD7-C719-4A0C-A39B-21B383219402}'
+    arguments: '/qn ADDLOCAL=StartMenu'
+    state: present
+- name: Download config files
+  win_get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+    checksum_algorithm: sha1
+  loop:
+    - { url: 'https://raw.githubusercontent.com/imkanami/desktop-dev-playbook/main/roles/install-core-app/source/openshell/Settings.xml', dest: 'C:\Program Files\Open-Shell\Settings.xml', checksum: 'c861936e6f830a56327020069cd877999a041643' }
+    - { url: 'https://github.com/imkanami/desktop-dev-playbook/raw/main/roles/install-core-app/source/openshell/Fluent-Metro.skin7', dest: 'C:\Program Files\Open-Shell\Skins\Fluent-Metro.skin7', checksum: '3d0c13427fc613d8ef6de6d09daaa4f0a9937e08' }
+- name: Load config file
+  win_psexec:
+    executable: C:\Program Files\Open-Shell\StartMenu.exe
+    command: -xml "C:\Program Files\Open-Shell\Settings.xml"
+    interactive: yes
+    elevated: yes
+- name: Restart explorer
+  win_shell: Stop-Process -ProcessName explorer
